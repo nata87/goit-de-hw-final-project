@@ -58,9 +58,9 @@ python3 read_results.py
 ```
 
 
-# # Final Project — Part 2: Building a Batch Data Lake
+# Final Project — Part 2: Building a Batch Data Lake
 
-## ## Опис проєкту
+## Опис проєкту
 
 Цей проєкт присвячений побудові пакетного даталейку (Batch Data Lake) за допомогою трирівневої архітектури **Medallion (Multi-hop) Architecture**: від початкового завантаження сирих даних до формування готових аналітичних вітрин.
 
@@ -68,7 +68,7 @@ python3 read_results.py
 
 ---
 
-## ## Архітектура Data Lake (Medallion Structure)
+## Архітектура Data Lake (Medallion Structure)
 
 Проєкт реалізує класичний multi-hop підхід до обробки даних про атлетів та їхні спортивні результати (`athlete_bio` та `athlete_event_results`):
 
@@ -81,11 +81,11 @@ python3 read_results.py
 
 ---
 
-## ## Опис Airflow DAG (`project_solution.py`)
+## Опис Airflow DAG (`project_solution.py`)
 
 Для забезпечення максимальної стабільності та уникнення проблем з відносними шляхами в Sandbox, замість стандартного оператора `SparkSubmitOperator`, запуск Spark-завдань реалізовано через **`BashOperator`**. Він ініціює прямі консольні команди `spark-submit` з точним динамічним абсолютним розташуванням скриптів на сервері.
 
-### ### Параметри DAG:
+### Параметри DAG:
 
 * **DAG ID**: `nata-goit-de-hw-final-project`
 * **Schedule**: `None` (запуск вручну або за тригером)
@@ -93,7 +93,7 @@ python3 read_results.py
 `nata_landing_to_bronze` ──> `nata_bronze_to_silver` ──> `nata_silver_to_gold`
 
 ---
-## ## Результати виконання пайплайну
+## Результати виконання пайплайну
 
 ### 1 Логування та консольний вивід Spark
 ETL-пайплайн послідовно автоматизує весь життєвий цикл даних: спочатку скрипт landing_to_bronze скачує сирі CSV-файли з FTP-сервера та конвертує їх у формат Parquet, потім bronze_to_silver очищає текст від технічного сміття за допомогою UDF та повністю видаляє дублікати рядків, і наприкінці silver_to_gold кастить типи даних, об'єднує таблиці й розраховує фінальну аналітичну вітрину з середніми показниками ваги та росту атлетів.
